@@ -11,6 +11,9 @@ This README documents the commands and steps used during Day 02 practice (from `
 - Typical day-02 workflow (create, commit, branch, push)
 - Common issues and fixes (seen in practice history)
 - Useful commands reference
+- Deep dive: `git fetch`
+- Deep dive: `git diff`
+- Fetch vs Pull comparison
 
 ## Purpose
 
@@ -125,6 +128,137 @@ Why: `-u` sets the tracking branch so future `git push`/`git pull` are simpler.
   rm -rf .git/
 
   If you remove `.git/` you lose all local Git metadata. Re-initialize with `git init`, then re-add remote and re-create commits as needed.
+
+## Deep dive: git fetch
+
+What `git fetch` does:
+
+- `git fetch` contacts the remote repository and downloads any commits, branches, tags, or other references that are missing locally, but it does not modify your working directory or current branch. It updates the remote-tracking branches (e.g., `origin/main`).
+
+Why use it:
+
+- Safe: since it does not change your working files or current branch, it is a good way to see what changed on the remote before integrating those changes into your local branches.
+- Inspect-only workflow: after `git fetch` you can run `git log origin/main..main` or `git diff origin/main..main` to inspect differences and decide how to integrate.
+
+Common forms and examples:
+
+- Fetch default remote:
+
+  git fetch
+
+- Fetch a specific remote and branch (updates `origin/feature`):
+
+  git fetch origin feature-branch
+
+- Fetch and prune deleted branches on the remote (remove stale remote-tracking branches):
+
+  git fetch --prune
+
+- Fetch all remotes and tags:
+
+  git fetch --all --tags
+
+How to use the result:
+
+- See what changed on `origin/main` since your last fetch:
+
+  git log --oneline main..origin/main
+
+- Inspect code differences (non-destructive):
+
+  git diff main..origin/main
+
+- Merge remote changes into your branch manually after inspecting:
+
+  git merge origin/main
+
+- Rebase your work on top of the fetched remote branch:
+
+  git rebase origin/main
+
+When not to use it:
+
+- If you want to automatically update your current branch with the remote state in one step, `git fetch` alone is insufficient — you still need to merge or rebase.
+
+## Deep dive: git diff
+
+What `git diff` does:
+
+- `git diff` shows differences between two points in Git. By default (with no arguments) it shows unstaged changes in the working directory compared to the index (staging area). It is a read-only command that presents line-by-line changes.
+
+Common usages and examples:
+
+- Show unstaged changes (working tree vs index):
+
+  git diff
+
+- Show staged changes (index vs HEAD):
+
+  git diff --staged
+
+  or
+
+  git diff --cached
+
+- Compare current branch with remote-tracking branch:
+
+  git diff origin/main..main
+
+  (shows what differs between the remote `origin/main` and your local `main`)
+
+- Compare two commits:
+
+  git diff COMMIT1..COMMIT2
+
+- Show changes for a specific file:
+
+  git diff origin/main..main -- path/to/file
+
+- Show word or color diff for easier reading:
+
+  git diff --color-words
+
+Interpreting the output:
+
+- Lines beginning with `---` and `+++` indicate file paths being compared.
+- `@@ -a,b +c,d @@` gives chunk context: lines removed from the left side and added on the right side.
+- Lines starting with `-` are removals; lines starting with `+` are additions.
+
+Practical tips:
+
+- Use `git diff --name-only origin/main..main` to get a list of files changed without the line-level output.
+- Use `git diff --stat origin/main..main` for a summary (files changed, insertions, deletions).
+- Combine `git fetch` and `git diff` to safely examine remote changes before merging:
+
+  git fetch
+  git diff --stat origin/main..main
+
+## Fetch vs Pull — quick comparison
+
+| Operation | What it does | Affects local branch? | Typical workflow | When to use |
+|---|---:|:---:|---|---|
+| git fetch | Downloads commits and updates remote-tracking branches (e.g., `origin/main`) but does NOT modify your working tree or current branch. | No (by itself) | Fetch → inspect (`git log`, `git diff`) → merge or rebase manually | When you want to review remote changes before integrating them; safer for CI or review workflows |
+| git pull | Equivalent to `git fetch` followed by an automatic `git merge` (by default) of the remote-tracking branch into your current branch (or `git rebase` when configured). | Yes — updates current branch (merge or rebase) | Pull (fetch+merge) to quickly bring your branch up to date with remote | When you want a one-step update and are ready to integrate remote changes immediately |
+
+Notes and caveats:
+
+- Because `git pull` performs a merge (or rebase) automatically, it can create merge commits or cause conflicts right in your working tree. If you prefer to resolve and review first, use `git fetch` then `git merge` or `git rebase`.
+
+- You can configure pull to use rebase by default:
+
+  git config --global pull.rebase true
+
+  or per-repo:
+
+  git config pull.rebase true
+
+- Example: review-first workflow
+
+  git fetch origin
+  git log --oneline main..origin/main
+  git diff --stat main..origin/main
+  # If OK:
+  git merge origin/main
 
 ## Common issues & tips (from the recorded session)
 
