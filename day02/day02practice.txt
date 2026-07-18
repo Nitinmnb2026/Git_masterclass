@@ -1,0 +1,125 @@
+ ssh-keygen -t ed25519 -C "iammanubansh@gmail.com"
+    2  eval "$(ssh-agent -s)"
+    3  ssh-add /c/Users/Administrator/.ssh/id_ed25519
+    4  clear
+    5  cat /c/Users/Administrator/.ssh/id_ed25519.pub
+    6  git pull git@github.com:Nitinmnb2026/day01.git
+    7  git init
+    8  git pull git@github.com:Nitinmnb2026/day01.git
+    9  clear
+   10  ls
+   11  git fetch
+   12  git log --oneline
+   13  mkdir day02
+   14  rm -rf .git
+   15  ls
+   16  clear
+   17  cd day02
+   18  git init
+   19  clear
+   20  echo "new app production
+
+" > main.txt
+   21  git status
+   22  git add .
+   23  git commit -m "chore:initialization"
+   24  git config --global user.email "iammanubansh@gmail.com"
+   25  git config --global user.name "Nitin ranjan"
+   26  git commit -m "chore:initialization"
+   27  git ps
+   28  git push
+   29  clear
+   30  cd ..
+   31  git init
+   32  git remote add origin git@github.com:Nitinmnb2026/Git_masterclass.git
+   33  git branch -m master main
+   34  git push -u origin main
+   35  git push -u origin main
+   36  git branch -m main main
+   37  clear
+   38  git remote add origin git@github.com:Nitinmnb2026/Git_masterclass.git
+   39  git branch -M main
+   40  git push -u origin main
+   41  cd day02
+   42  rm -rf .git
+   43  cd ..
+   44  git remote add origin git@github.com:Nitinmnb2026/Git_masterclass.git
+   45  git branch -M main
+   46  git push -u origin main
+   47  clear
+   48  git status
+   49  git add .
+   50  git commit -m "chore:app initialization"
+   51  clear
+   52  git push -u origin main
+   53  rm -rf .git/
+   54  cd day02
+   55  git init
+   56   git branch -m master main
+   57  clear
+   58  git checkout -b feat/day02
+   59  clear
+   60  git log --oneline
+   61  vim login.txt
+   62  git add .
+   63  git commit -m "feat:login details"
+   64  git log --oneline
+   65  git checkout -b main
+   66  clear
+   67  git log --oneline
+   68  git status
+   69  cd ..
+   70  git init
+   71  git push
+   72  git push -u origin main
+   73  cd day02
+   74  rm -rf .git/
+   75  clea
+   76  clear
+   77  cd ..
+   78  git branch -m master main
+   79  clear
+   80  git push -u origin main
+   81  git satus
+   82  git status
+   83  git add .
+   84  git status
+   85  git commit -m "app commit"
+   86  git push -u origin main
+   87  git remote
+   88  git remote add origin git@github.com:Nitinmnb2026/Git_masterclass.git
+   89  git push -u origin main
+   90  git fetch
+   91  git push -u origin main
+   92  git diff
+   93  git diff origin..main/main
+   94  git diff main..origin/main
+   95  rm -rf day02/login.txt
+   96  git status
+   97  git push -u origin main
+   98  git diff main..origin/main
+   99  git log --oneline
+  100  rm -rf day02/main.txt
+  101  git diff main..origin/main
+  102  git log --oneline
+  103  git status
+  104  git add .
+  105  git status
+  106  git commit -m
+  107  git commit -m "removed files"
+  108  git status
+  109  git log --oneline
+  110  git push -u origin main
+  111  clear
+  112  git pull
+  113  git pull git@github.com:Nitinmnb2026/Git_masterclass.git
+  114  la
+  115  ls
+  116  clear
+  117  git log --oneline
+  118  rm -rf .git/
+  119  ls -al
+  120  git init
+  121  git branch -m master main
+  122  clear
+  123  git pull git@github.com:Nitinmnb2026/Git_masterclass.git
