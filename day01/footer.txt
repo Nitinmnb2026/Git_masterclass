@@ -1,0 +1,5 @@
+New footer on login page added
+background changed to red
+New footer on login page added 
+background changed to green
+resolved
